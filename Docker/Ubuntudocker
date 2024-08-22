@@ -1,0 +1,12 @@
+###This part is used for BUILDTIME
+FROM ubuntu:latest
+RUN echo "Hello World" > hello.txt
+###ARG only works in BUILDTIME
+###This part is used for RUNTIME
+ENV AGE=28
+ENV NAME="Azim"
+ENV LOCATION="Chicago"
+CMD ["sleep", "infinity"]
+COPY ./index.html .
+COPY . .
+#CMD = COMMAND

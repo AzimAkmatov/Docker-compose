@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicago Picture</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-text {
+            text-align: center;
+            padding: 20px;
+            font-size: 2.5rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+        .image-container {
+            flex: 1;
+            position: relative;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-text">Welcome to the VOLUME!!!</div>
+    <div class="image-container">
+        <img src="chicago.jpeg" alt="Chicago">
+    </div>
+</body>
+</html>

@@ -1,86 +1,22 @@
-version: '3'
-networks:
-  class:
-    name: class
-    driver: bridge
-
 services:
-#################################################
-#This is my python1 cont
-  python1:
-    build: ./backend1
-    ports:
-      - "4000:3000"
-#Ports order - local:container
-    volumes:
-      - /Users/azim/Compose/data1:/data1
-#Volumes order - local:container
-    depends_on:
-      nginx:
-        condition: service_healthy
-    env_file:
-      - py1.env
-      - common.env
-    networks:
-      - class
-#################################################
-#This is my python2 cont
-  python2:
-    build: ./backend2
-    ports:
-      - "5000:3000"
-#Ports order - local:container
-    volumes:
-      - /Users/azim/Compose/data2:/data2
-#Volumes order - local:container
-    depends_on:
-      nginx:
-        condition: service_healthy
-    env_file:
-      - py2.env
-      - common.env
-    networks:
-      - class
-
-#################################################
-#This is my nginx cont
-  nginx:
+###This is my frontend con which is running nginx
+  frontend:
     build: ./frontend
-    depends_on:
-      postgres:
-        condition: service_healthy
     ports:
       - "80:80"
-    volumes:
-      - /Users/azim/Compose/nginx:/nginx
-    env_file:
-      - nginx.env
-      - common.env
-    networks:
-      - class
-    healthcheck:
-      test: ["CMD", "service", "nginx", "status"]
-      interval: 3s
-      timeout: 3s
-      retries: 30
 
-
-#################################################
-#This is my postgres cont
-  postgres:
-    build: ./database
-    env_file:
-      - common.env
-      - db.env
-    volumes:
-      - /Users/azim/Compose/postgres:/postgres
+###This is my frontend con which is running PHP
+  backend:
+    build: ./backend
     ports:
-      - "5432:5432"
-    networks:
-      - class
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 3s
-      timeout: 3s
-      retries: 30
+      - "8080:80"
+    depends_on: 
+      - frontend
 
+
+
+###This is my frontend con which is running Database
+  # db:
+  #   build: ./db
+  #   depends_on: 
+  #     - backend
